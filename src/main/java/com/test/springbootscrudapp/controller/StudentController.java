@@ -2,7 +2,8 @@ package com.test.springbootscrudapp.controller;
 
 import com.test.springbootscrudapp.model.Student;
 import com.test.springbootscrudapp.model.StudentNotFoundException;
-import com.test.springbootscrudapp.model.StudentService;
+import com.test.springbootscrudapp.service.StudentService;
+import com.test.springbootscrudapp.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +15,18 @@ import java.util.List;
 @RequestMapping("student")
 public class StudentController {
 
+    private final StudentService studentService;
+
+    @Autowired
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
+
     @GetMapping("")
     public String showHomePage(){
         return "index";
     }
-
-    @Autowired
-    private StudentService studentService;
 
     @GetMapping("/studentsDetails")
     public String showStudentList(Model model){
@@ -43,25 +49,17 @@ public class StudentController {
     }
 
     @GetMapping("/student/edit/{id}")
-    public  String studentEdit(@PathVariable("id") Integer id, Model model){
-        try {
-            Student student = studentService.get(id);
-            model.addAttribute("student", student);
-            model.addAttribute("pageTitle", "Edit Student (ID: " +id+ ")");
-            return "addNewStudent";
-        }catch (StudentNotFoundException e){
-            return "redirect:/api/v/student/studentsDetails";
-        }
+    public  String studentEdit(@PathVariable("id") Integer id, Model model) throws StudentNotFoundException {
+        Student student = studentService.get(id);
+        model.addAttribute("student", student);
+        model.addAttribute("pageTitle", "Edit Student (ID: " +id+ ")");
+        return "addNewStudent";
     }
 
     @GetMapping("/student/delete/{id}")
-    public  String deleteStudent(@PathVariable("id") Integer id){
-        try {
-            studentService.deleteStudent(id);
-            System.out.println("Successfully deleted!");
-        }catch (StudentNotFoundException e){
-            e.printStackTrace();
-        }
+    public  String deleteStudent(@PathVariable("id") Integer id) throws StudentNotFoundException {
+        studentService.deleteStudent(id);
+        System.out.println("Successfully deleted!");
         return "redirect:/api/v/student/studentsDetails";
     }
 
