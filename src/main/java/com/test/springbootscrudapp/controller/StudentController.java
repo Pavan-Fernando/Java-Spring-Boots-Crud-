@@ -1,9 +1,8 @@
 package com.test.springbootscrudapp.controller;
 
 import com.test.springbootscrudapp.model.Student;
-import com.test.springbootscrudapp.model.StudentNotFoundException;
+import com.test.springbootscrudapp.exception.StudentNotFoundException;
 import com.test.springbootscrudapp.service.StudentService;
-import com.test.springbootscrudapp.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

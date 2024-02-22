@@ -1,7 +1,7 @@
 package com.test.springbootscrudapp.service;
 
 import com.test.springbootscrudapp.model.Student;
-import com.test.springbootscrudapp.model.StudentNotFoundException;
+import com.test.springbootscrudapp.exception.StudentNotFoundException;
 
 import java.util.List;
 
