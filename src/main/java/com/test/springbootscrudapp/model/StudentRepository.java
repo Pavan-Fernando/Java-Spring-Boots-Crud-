@@ -1,8 +1,10 @@
 package com.test.springbootscrudapp.model;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface StudentRepository extends CrudRepository<Student, Integer> {
+@Repository
+public interface StudentRepository extends JpaRepository<Student, Integer> {
 
-    public  Long countById(Integer id);
+    Long countById(Integer id);
 }
